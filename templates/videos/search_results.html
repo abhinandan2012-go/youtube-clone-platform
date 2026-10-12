@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-12">
+        <h2>Search results{% if query %} for "{{ query }}"{% endif %}</h2>
+    </div>
+    {% for video in videos %}
+        <div class="col-md-4">
+            <div class="card video-card h-100">
+                {% if video.thumbnail %}
+                    <img src="{{ video.thumbnail.url }}" class="card-img-top" alt="{{ video.title }}">
+                {% else %}
+                    <div class="card-img-top placeholder-thumbnail">Video Thumbnail</div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'video_detail' slug=video.slug %}">{{ video.title }}</a></h5>
+                    <p>{{ video.channel.name }}</p>
+                    <small class="text-muted">{{ video.view_count }} views · {{ video.created_at|date:"M d, Y" }}</small>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="alert alert-light">No matching results were found.</div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

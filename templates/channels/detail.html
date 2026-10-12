@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ channel.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2>{{ channel.name }}</h2>
+        <p>{{ channel.description }}</p>
+    </div>
+    {% for video in videos %}
+        <div class="col-md-4">
+            <div class="card video-card h-100">
+                <div class="card-body">
+                    <h5>{{ video.title }}</h5>
+                    <a href="{% url 'video_detail' slug=video.slug %}" class="btn btn-sm btn-primary">Open</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">No videos yet.</div>
+    {% endfor %}
+</div>
+{% endblock %}

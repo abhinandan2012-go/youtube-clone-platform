@@ -4,7 +4,7 @@ from django.db import models
 
 class Notification(models.Model):
     recipient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="notifications")
-    actor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, related_name="notifications_sent", null=True, blank=True)
+    actor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="notifications_sent")
     message = models.CharField(max_length=255)
     action_url = models.CharField(max_length=255, blank=True)
     is_read = models.BooleanField(default=False)

@@ -1,0 +1,76 @@
+body {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+.navbar {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.card {
+    background: #111827;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+}
+
+.video-card {
+    overflow: hidden;
+}
+
+.video-card a {
+    color: white;
+    text-decoration: none;
+}
+
+.card-img-top {
+    height: 220px;
+    object-fit: cover;
+    background: #1f2937;
+}
+
+.placeholder-thumbnail {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+    color: white;
+    font-weight: 600;
+}
+
+.sidebar {
+    background: #0b1220;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f97316, #ef4444);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.search-form {
+    width: min(42vw, 700px);
+}
+
+.auth-card {
+    margin-top: 60px;
+}
+
+.video-frame {
+    border-radius: 14px;
+    overflow: hidden;
+    background: #020617;
+    min-height: 360px;
+}
+
+.comment-box {
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 14px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+}

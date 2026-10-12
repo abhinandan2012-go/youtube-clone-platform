@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Videoflow Home{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-2 d-none d-lg-block">
+        <aside class="sidebar card h-100">
+            <div class="card-body">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Shorts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Subscriptions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Playlists</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Liked Videos</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <div class="col-lg-10">
+        <div class="mb-4 d-flex flex-wrap gap-2">
+            <span class="badge rounded-pill bg-light text-dark">All</span>
+            <span class="badge rounded-pill bg-light text-dark">Music</span>
+            <span class="badge rounded-pill bg-light text-dark">Gaming</span>
+            <span class="badge rounded-pill bg-light text-dark">Education</span>
+            <span class="badge rounded-pill bg-light text-dark">Technology</span>
+            <span class="badge rounded-pill bg-light text-dark">News</span>
+            <span class="badge rounded-pill bg-light text-dark">Sports</span>
+            <span class="badge rounded-pill bg-light text-dark">Entertainment</span>
+        </div>
+
+        <div class="row g-4">
+            {% for video in videos %}
+                <div class="col-md-6 col-xl-4">
+                    <div class="card video-card h-100">
+                        {% if video.thumbnail %}
+                            <img src="{{ video.thumbnail.url }}" class="card-img-top" alt="{{ video.title }}">
+                        {% else %}
+                            <div class="card-img-top placeholder-thumbnail">Video Thumbnail</div>
+                        {% endif %}
+                        <div class="card-body">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="avatar">{{ video.channel.name|slice:':1'|upper }}</div>
+                                <div>
+                                    <h5 class="card-title"><a href="{% url 'video_detail' slug=video.slug %}">{{ video.title }}</a></h5>
+                                    <p class="card-text mb-1">{{ video.channel.name }}</p>
+                                    <small class="text-muted">{{ video.view_count }} views · {{ video.created_at|date:"M d, Y" }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-light">No public videos available yet.</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

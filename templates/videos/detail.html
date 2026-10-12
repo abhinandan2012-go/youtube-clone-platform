@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ video.title }}{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="video-frame mb-4">
+            {% if video.video_file %}
+                <video controls class="w-100" poster="{% if video.thumbnail %}{{ video.thumbnail.url }}{% endif %}">
+                    <source src="{{ video.video_file.url }}" type="video/mp4">
+                </video>
+            {% else %}
+                <div class="alert alert-light">This video is being processed. Please try again later.</div>
+            {% endif %}
+        </div>
+
+        <h2>{{ video.title }}</h2>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <strong>{{ video.channel.name }}</strong>
+                <div class="text-muted">{{ video.view_count }} views · {{ video.created_at|date:"M d, Y" }}</div>
+            </div>
+            <div>
+                <a href="{% url 'toggle_like' slug=video.slug %}" class="btn btn-outline-primary">Like</a>
+                <a href="#" class="btn btn-outline-secondary">Subscribe</a>
+            </div>
+        </div>
+        <p>{{ video.description }}</p>
+
+        <h4>Comments</h4>
+        {% if user.is_authenticated %}
+            <form method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit" class="btn btn-primary">Post Comment</button>
+            </form>
+        {% endif %}
+
+        {% for comment in comments %}
+            <div class="comment-box mt-3">
+                <strong>{{ comment.user.username }}</strong>
+                <p>{{ comment.body }}</p>
+            </div>
+        {% empty %}
+            <p class="text-muted">No comments yet.</p>
+        {% endfor %}
+    </div>
+
+    <div class="col-lg-4">
+        <h4>Related videos</h4>
+        {% for related in related_videos %}
+            <div class="mb-3">
+                <a href="{% url 'video_detail' slug=related.slug %}">{{ related.title }}</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
